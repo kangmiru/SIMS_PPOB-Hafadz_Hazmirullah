@@ -1,37 +1,36 @@
-"use client";
+'use client'
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation"
 
-import styles from "../styles/layout.module.css";
+const links = [
+  {
+    name: 'Top Up',
+    path: '/pages/topup',
+  },
+  {
+    name: 'Transaction',
+    path: '/',
+  },
+  {
+    name: 'Akun',
+    path: '/',
+  },
+]
 
-export const Nav = () => {
-  const pathname = usePathname();
-
+function Nav () {
+  const pathname =usePathname();
   return (
-    <nav className={styles.nav}>
-      <Link
-        className={`${styles.link} ${pathname === "/" ? styles.active : ""}`}
-        href="/"
-      >
-        Home
-      </Link>
-      <Link
-        className={`${styles.link} ${
-          pathname === "/verify" ? styles.active : ""
-        }`}
-        href="/verify"
-      >
-        Verify
-      </Link>
-      <Link
-        className={`${styles.link} ${
-          pathname === "/quotes" ? styles.active : ""
-        }`}
-        href="/quotes"
-      >
-        Quotes
-      </Link>
+    <nav className="flex gap-8">
+      {links.map((link, index) => {
+        return (
+          <Link href={link.path} key={index} className={`${link.path === pathname && 'text-red-500'} capitalize font-medium`}>
+            {link.name}
+          </Link>
+        )
+      })}
     </nav>
-  );
-};
+  )
+}
+
+export default Nav
